@@ -1,5 +1,6 @@
 package cow.abl.qrjob;
 
+import android.content.Intent;
 import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,17 +11,26 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cow.abl.qrjob.Fragment.OrganisationFragment;
 import cow.abl.qrjob.Fragment.QRScanFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        QRCodeReaderView.OnQRCodeReadListener, QRScanFragment.OnFragmentInteractionListener{
+        QRCodeReaderView.OnQRCodeReadListener,
+        QRScanFragment.OnFragmentInteractionListener,
+        OrganisationFragment.OnFragmentInteractionListener {
+
+    private String lastQrCodeRead_ = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +61,13 @@ public class MainActivity extends AppCompatActivity
         // Default fragment : QR Scanner
         getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer,
                 new QRScanFragment(), "").commit();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        lastQrCodeRead_ = null;
     }
 
     @Override
@@ -113,6 +130,32 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onQRCodeRead(String text, PointF[] points) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+
+        // Parse JSON from QR code
+        try {
+            if (lastQrCodeRead_!=null && lastQrCodeRead_.equals(text)) {
+                return;
+            } else {
+                lastQrCodeRead_ = text;
+            }
+            JSONObject json = new JSONObject(text);
+
+            String companyId = json.getString("id");
+            String companyName = json.getString("name");
+            String companyDescription = json.getString("description");
+
+//            Intent myIntent = new Intent(this, JobDescriptionActivity.class);
+//            myIntent.putExtra("companyId", companyId);
+//            myIntent.putExtra("companyName", companyName);
+//            myIntent.putExtra("companyDescription", companyDescription);
+//            startActivity(myIntent);
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, OrganisationFragment.newInstance(companyId, companyName, companyDescription)).commit();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e("JSON parsing", "Failed to parse the JSON from the QR code.");
+        }
     }
 
     @Override

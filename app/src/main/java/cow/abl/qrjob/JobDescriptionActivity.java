@@ -1,6 +1,7 @@
 package cow.abl.qrjob;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -8,9 +9,8 @@ import com.github.clans.fab.FloatingActionMenu;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.ArrayAdapter;
-
-import java.util.ArrayList;
 
 public class JobDescriptionActivity extends AppCompatActivity {
     FloatingActionButton shareButton;
@@ -18,6 +18,10 @@ public class JobDescriptionActivity extends AppCompatActivity {
     FloatingActionButton saveButton;
     FloatingActionMenu actionMenu;
     ListViewCompat listView;
+
+    private String companyId_;
+    private String companyName_;
+    private String companyDescription_;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,7 @@ public class JobDescriptionActivity extends AppCompatActivity {
 //            }
 //        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     private class DescriptionAdapter extends ArrayAdapter<JobDescription>{

@@ -23,12 +23,13 @@ import cow.abl.qrjob.R;
 public class OrganisationFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM1 = "companyId";
+    private static final String ARG_PARAM2 = "companyName";
+    private static final String ARG_PARAM3 = "companyDescription";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String companyId_;
+    private String companyName_;
+    private String companyDescription_;
 
     private OnFragmentInteractionListener mListener;
 
@@ -40,16 +41,15 @@ public class OrganisationFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment OrganisationFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static OrganisationFragment newInstance(String param1, String param2) {
+    public static OrganisationFragment newInstance(String companyId, String companyName, String companyDescription) {
         OrganisationFragment fragment = new OrganisationFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM1, companyId);
+        args.putString(ARG_PARAM2, companyName);
+        args.putString(ARG_PARAM3, companyDescription);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,9 +57,24 @@ public class OrganisationFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            companyId_ = getArguments().getString(ARG_PARAM1);
+            companyName_ = getArguments().getString(ARG_PARAM2);
+            companyDescription_ = getArguments().getString(ARG_PARAM3);
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        TextView tvOrganisationName = (TextView)this.getActivity().findViewById(R.id.organisation_name);
+        TextView tvOrganisationDescription = (TextView)this.getActivity().findViewById(R.id.organisation_description);
+
+        if (companyName_ != null && companyDescription_ != null) {
+            tvOrganisationName.setText(companyName_);
+            tvOrganisationDescription.setText(companyDescription_);
         }
     }
 

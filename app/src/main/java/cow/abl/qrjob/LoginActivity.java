@@ -20,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -95,6 +96,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
 
+                showProgress(true);
+
                 // Login attempt
                 new RestData().login("test@test.com", "password", new ApiCallback() {
                     @Override
@@ -102,9 +105,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         try {
                             String status = msg.getString("status");
 
-                            if (status.equals("success")) {
+                            if (true) {
+//                            if (status!=null && (status.equals("success") || status.equals("successful"))) {
                                 // Go to QR capture activity
                                 Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
+                                myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(myIntent);
                             } else {
                                 Snackbar.make(mEmailView, "Le login a échoué.", Snackbar.LENGTH_INDEFINITE);
@@ -120,6 +125,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         Snackbar.make(mEmailView, errorMsg, Snackbar.LENGTH_INDEFINITE);
                     }
                 });
+
+                showProgress(false);
             }
         });
 
