@@ -46,7 +46,7 @@ public class JobDescriptionActivity extends AppCompatActivity {
 //                        .setAction("Action", null).show();
 //            }
 //        });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //TODO : listener du bouton en haut a gauche
 
     }
 
