@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="cow.abl.qrjob.CVEditActivity">
+    <item
+        android:id="@+id/cv_edit_ok_button"
+        android:orderInCategory="100"
+        android:title="@string/OK"
+        app:showAsAction="ifRoom"
+        />
+</menu>

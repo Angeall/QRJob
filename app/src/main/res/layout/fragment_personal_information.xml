@@ -1,0 +1,119 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cow.abl.qrjob.Fragment.PersonalInformationFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!-- NAME -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/cv_edit_name_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/name"/>
+            </android.support.design.widget.TextInputLayout>
+        </FrameLayout>
+        <!-- SURNAME -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/cv_edit_surname_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/surname"/>
+        </android.support.design.widget.TextInputLayout>
+        </FrameLayout>
+
+        <!-- AGE -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/cv_edit_age_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/age"/>
+        </android.support.design.widget.TextInputLayout>
+        </FrameLayout>
+
+        <!-- NATIONALITY -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/cv_edit_nationality_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/nationality"
+                android:editable="false"/>
+        </android.support.design.widget.TextInputLayout>
+        </FrameLayout>
+
+        <!-- CITY -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <android.support.v7.widget.AppCompatAutoCompleteTextView
+                    android:id="@+id/cv_edit_city_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/city"
+                    android:editable="false" />
+            </android.support.design.widget.TextInputLayout>
+        </FrameLayout>
+
+        <!-- MARITAL STATUS -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/cv_edit_marital_status_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/marital"
+                android:editable="false"/>
+        </android.support.design.widget.TextInputLayout>
+        </FrameLayout>
+
+        <!-- DRIVER LICENSE -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/cv_edit_driver_license_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/driver_license"
+                android:editable="false" />
+        </android.support.design.widget.TextInputLayout>
+        </FrameLayout>
+
+    </LinearLayout>
+</ScrollView>
