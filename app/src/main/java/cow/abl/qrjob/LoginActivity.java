@@ -19,6 +19,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,8 +30,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import cow.abl.qrjob.net.ApiCallback;
+import cow.abl.qrjob.net.RestNetSocket;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -86,7 +100,44 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+
+//                new RestNetSocket().get("http://restful-api.eu-gb.mybluemix.net/companies/create", new ApiCallback() {
+//                    @Override
+//                    public void onSuccess(JSONObject msg) {
+//                        if (msg != null) {
+//                            Log.d("DEBUG", "### success " + msg.toString());
+//
+//                        } else {
+//                            Log.d("DEBUG", "### null success msg");
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(String errorMsg) {
+//                        Log.d("DEBUG", "### failure " + errorMsg);
+//                    }
+//                });
+
+                Map<String, String> params = new HashMap<String, String>(3);
+                params.put("mail", "test01@test.com");
+                params.put("password", "test");
+                params.put("name", "Guy");
+                new RestNetSocket().post("http://restful-api.eu-gb.mybluemix.net/users/create", params, new ApiCallback() {
+                    @Override
+                    public void onSuccess(JSONObject msg) {
+                        if (msg != null) {
+                            Log.d("DEBUG", "### success " + msg.toString());
+
+                        } else {
+                            Log.d("DEBUG", "### null success msg");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(String errorMsg) {
+                        Log.d("DEBUG", "### failure " + errorMsg);
+                    }
+                });
             }
         });
 
