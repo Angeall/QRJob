@@ -25,9 +25,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+         <activity
+         android:name=".MainActivity"
+         android:label="QRJob"/>
         <activity
-            android:name=".MainActivity"
-            android:label="QRJob"/>
+            android:name=".JobDescriptionActivity"
+            android:label="@string/title_activity_job_description"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cow.abl.qrjob.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

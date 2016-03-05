@@ -10,16 +10,20 @@
     android:orientation="vertical"
     tools:context="cow.abl.qrjob.JobDescriptionActivity"
     tools:showIn="@layout/activity_job_description">
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Organisation"
+        android:textSize="@dimen/material_text_display1"/>
     <android.support.v4.widget.NestedScrollView
-
+        android:id="@+id/job_description_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="TEST" />
-
+        <android.support.v7.widget.ListViewCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/job_description_list_view" />
     </android.support.v4.widget.NestedScrollView>
 
 
