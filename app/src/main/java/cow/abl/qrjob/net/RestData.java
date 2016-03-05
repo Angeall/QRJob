@@ -18,7 +18,7 @@ import okhttp3.Response;
 /**
  * REST request to the API.
  */
-public class RestNetSocket {
+public class RestData {
     private OkHttpClient client_ = new OkHttpClient();
     private static final String apiUrl = "http://restful-api.eu-gb.mybluemix.net";
     private static final String loginUrl = "/login";
