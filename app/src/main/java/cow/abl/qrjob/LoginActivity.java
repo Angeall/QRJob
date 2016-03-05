@@ -103,6 +103,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     @Override
                     public void onSuccess(JSONObject msg) {
                         try {
+                            if (msg == null) {
+                                Snackbar.make(mEmailView, "Le login a échoué.", Snackbar.LENGTH_INDEFINITE);
+                            }
+
                             String status = msg.getString("status");
 
                             if (true) {

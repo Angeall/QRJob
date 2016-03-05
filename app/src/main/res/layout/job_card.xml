@@ -26,7 +26,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:text="Android Name"
                     android:textAppearance="?android:attr/textAppearanceLarge"/>
 
@@ -35,7 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="8dp"
 
                     android:text="Android Version"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>

@@ -4,12 +4,19 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import cow.abl.qrjob.JobOffer;
+import cow.abl.qrjob.JobOffersAdapter;
 import cow.abl.qrjob.R;
 
 /**
@@ -32,6 +39,12 @@ public class OrganisationFragment extends Fragment {
     private String companyDescription_;
 
     private OnFragmentInteractionListener mListener;
+
+    private RecyclerView offersRecyclerView_;
+    private RecyclerView.LayoutManager layoutManager_;
+    private ArrayList<JobOffer> jobOffersData_ = new ArrayList<>(2);
+    private RecyclerView.Adapter adapter_;
+    public static View.OnClickListener cardOnClickListener;
 
     public OrganisationFragment() {
         // Required empty public constructor
@@ -63,19 +76,34 @@ public class OrganisationFragment extends Fragment {
             companyName_ = getArguments().getString(ARG_PARAM2);
             companyDescription_ = getArguments().getString(ARG_PARAM3);
         }
+
+        JobOffer jobOffer = new JobOffer("321", "CDI", "Accountant");
+        jobOffersData_.add(jobOffer);
+        jobOffer = new JobOffer("322", "CDD", "Developer");
+        jobOffersData_.add(jobOffer);
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-        TextView tvOrganisationName = (TextView)this.getActivity().findViewById(R.id.organisation_name);
-        TextView tvOrganisationDescription = (TextView)this.getActivity().findViewById(R.id.organisation_description);
+        TextView tvOrganisationName = (TextView)getView().findViewById(R.id.organisation_name);
+        TextView tvOrganisationDescription = (TextView)getView().findViewById(R.id.organisation_description);
 
         if (companyName_ != null && companyDescription_ != null) {
             tvOrganisationName.setText(companyName_);
             tvOrganisationDescription.setText(companyDescription_);
         }
+
+        offersRecyclerView_ = (RecyclerView)getView().findViewById(R.id.organisation_recycler_view);
+//        offersRecyclerView_.setHasFixedSize(true);
+
+        layoutManager_ = new LinearLayoutManager(getView().getContext());
+        offersRecyclerView_.setLayoutManager(layoutManager_);
+        offersRecyclerView_.setItemAnimator(new DefaultItemAnimator());
+
+        adapter_ = new JobOffersAdapter(jobOffersData_);
+        offersRecyclerView_.setAdapter(adapter_);
     }
 
     @Override
@@ -123,4 +151,20 @@ public class OrganisationFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    private static class CardOnClickListener implements View.OnClickListener {
+
+        private final Context context;
+
+        private CardOnClickListener(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        public void onClick(View v) {
+            Log.d("DEBUG", "clicked");
+        }
+    }
+
+
 }
