@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="marital_status">
+        <item>@string/single</item>
+        <item>@string/married</item>
+        <item>@string/divorced</item>
+        <item>@string/widowed</item>
+    </string-array>
+
+    <string-array name="countries">
+        <item>@string/belgium</item>
+        <item>@string/france</item>
+        <item>@string/netherlands</item>
+        <item>@string/deutschland</item>
+    </string-array>
+
+    <string-array name="drivers_license">
+        <item>A</item>
+        <item>B</item>
+        <item>C1</item>
+        <item>C</item>
+        <item>D1</item>
+        <item>D</item>
+        <item>BE</item>
+        <item>C1E</item>
+        <item>CE</item>
+        <item>D1E</item>
+        <item>DE</item>
+    </string-array>
+</resources>
