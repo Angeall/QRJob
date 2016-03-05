@@ -118,24 +118,48 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //                    }
 //                });
 
-                Map<String, String> params = new HashMap<String, String>(3);
-                params.put("mail", "test01@test.com");
-                params.put("password", "test");
-                params.put("name", "Guy");
-                new RestNetSocket().post("http://restful-api.eu-gb.mybluemix.net/users/create", params, new ApiCallback() {
+//                Map<String, String> params = new HashMap<String, String>(3);
+//                params.put("mail", "test01@test.com");
+//                params.put("password", "test");
+//                params.put("name", "Guy");
+//                new RestNetSocket().post("http://restful-api.eu-gb.mybluemix.net/users/create", params, new ApiCallback() {
+//                    @Override
+//                    public void onSuccess(JSONObject msg) {
+//                        if (msg != null) {
+//                            Log.d("DEBUG", "### success " + msg.toString());
+//
+//                        } else {
+//                            Log.d("DEBUG", "### null success msg");
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(String errorMsg) {
+//                        Log.d("DEBUG", "### failure " + errorMsg);
+//                    }
+//                });
+
+                new RestNetSocket().login("test@test.com", "password", new ApiCallback() {
                     @Override
                     public void onSuccess(JSONObject msg) {
-                        if (msg != null) {
-                            Log.d("DEBUG", "### success " + msg.toString());
-
-                        } else {
-                            Log.d("DEBUG", "### null success msg");
-                        }
+                        Log.d("DEBUG", "### login success: " + msg);
                     }
 
                     @Override
                     public void onFailure(String errorMsg) {
-                        Log.d("DEBUG", "### failure " + errorMsg);
+                        Log.d("DEBUG", "### login failure:" + errorMsg);
+                    }
+                });
+
+                new RestNetSocket().getCompany("1", new ApiCallback() {
+                    @Override
+                    public void onSuccess(JSONObject msg) {
+                        Log.d("DEBUG", "### getCompany success: " + msg);
+                    }
+
+                    @Override
+                    public void onFailure(String errorMsg) {
+                        Log.d("DEBUG", "### getCompany failure:" + errorMsg);
                     }
                 });
             }
