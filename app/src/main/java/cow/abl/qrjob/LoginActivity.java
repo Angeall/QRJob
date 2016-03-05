@@ -3,6 +3,8 @@ package cow.abl.qrjob;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -30,6 +32,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -90,29 +93,33 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
+
             @Override
             public void onClick(View view) {
+
+                // Login attempt
                 new RestData().login("test@test.com", "password", new ApiCallback() {
                     @Override
                     public void onSuccess(JSONObject msg) {
-                        Log.d("DEBUG", "### login success: " + msg);
+                        try {
+                            String status = msg.getString("status");
+
+                            if (status.equals("success")) {
+                                // Go to QR capture activity
+                                Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(myIntent);
+                            } else {
+                                Snackbar.make(mEmailView, "Le login a échoué.", Snackbar.LENGTH_INDEFINITE);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Snackbar.make(mEmailView, "Le login a échoué.", Snackbar.LENGTH_INDEFINITE);
+                        }
                     }
 
                     @Override
                     public void onFailure(String errorMsg) {
-                        Log.d("DEBUG", "### login failure:" + errorMsg);
-                    }
-                });
-
-                new RestData().getCompany("1", new ApiCallback() {
-                    @Override
-                    public void onSuccess(JSONObject msg) {
-                        Log.d("DEBUG", "### getCompany success: " + msg);
-                    }
-
-                    @Override
-                    public void onFailure(String errorMsg) {
-                        Log.d("DEBUG", "### getCompany failure:" + errorMsg);
+                        Snackbar.make(mEmailView, errorMsg, Snackbar.LENGTH_INDEFINITE);
                     }
                 });
             }
