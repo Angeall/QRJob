@@ -164,7 +164,22 @@ public class RestData {
                     e.printStackTrace();
                     callback.onFailure("Error: bad server response");
                 } finally {
-                    callback.onSuccess(resultJson);
+                    if (resultJson != null) {
+                        String status = null;
+
+                        try {
+                            status = resultJson.getString("status");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (status!= null && status.equals("successful")) {
+                            callback.onSuccess(resultJson);
+                            return;
+                        }
+                    }
+
+                    callback.onFailure("Opération non autorisée.");
                 }
             }
         }).start();
