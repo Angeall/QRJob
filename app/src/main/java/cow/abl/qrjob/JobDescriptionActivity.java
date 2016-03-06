@@ -61,9 +61,6 @@ public class JobDescriptionActivity extends AppCompatActivity {
 
         jobOfferId_ = getIntent().getStringExtra("jobOfferId");
         userID_     = getIntent().getStringExtra("user_id");
-        userID_     = "6";
-
-        jobOfferId_ = "6";
 
         Log.i("after", String.valueOf(supportActionBar.getTitle()));
         populateButtons();
