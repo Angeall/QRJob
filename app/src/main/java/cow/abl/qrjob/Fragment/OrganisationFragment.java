@@ -88,6 +88,7 @@ public class OrganisationFragment extends Fragment {
             companyDescription_ = getArguments().getString(ARG_PARAM3);
         }
 
+
         new RestData().getCompanyOffers(companyId_, new ApiCallback() {
             @Override
             public void onSuccess(JSONObject msg) {
