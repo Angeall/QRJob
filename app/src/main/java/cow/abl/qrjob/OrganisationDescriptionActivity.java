@@ -82,8 +82,18 @@ public class OrganisationDescriptionActivity extends AppCompatActivity{
                 public void onSuccess(JSONObject msg) {
                     try {
                         msg = msg.getJSONObject("content");
-                        organisationNameTextView.setText(msg.getString("name"));
-                        descriptionTextView.setText(msg.getString("description"));
+                        final JSONObject finalMsg = msg;
+                        OrganisationDescriptionActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    organisationNameTextView.setText(finalMsg.getString("name"));
+                                    descriptionTextView.setText(finalMsg.getString("description"));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
                     } catch (JSONException e) {
                         Log.e("OrgaDescriptionLoading", e.getMessage());
                     }

@@ -1,34 +1,21 @@
 package cow.abl.qrjob;
 
-import android.annotation.TargetApi;
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import com.github.clans.fab.FloatingActionButton;
-import com.github.clans.fab.FloatingActionMenu;
-
 import android.support.design.widget.Snackbar;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ShareActionProvider;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Date;
 
 import cow.abl.qrjob.net.ApiCallback;
 import cow.abl.qrjob.net.RestData;
@@ -45,6 +32,7 @@ public class JobDescriptionActivity extends AppCompatActivity {
     private String companyId_;
     private String jobOfferId_;
     TextView typeTextView;
+    private String userID_;
 
 
     @Override
@@ -63,22 +51,14 @@ public class JobDescriptionActivity extends AppCompatActivity {
         descriptionTextView = (TextView) findViewById(R.id.job_description);
 
         jobOfferId_ = getIntent().getStringExtra("jobOfferId");
+        userID_     = getIntent().getStringExtra("user_id");
+        userID_     = "6";
 
         jobOfferId_ = "6";
 
         populateViews(jobOfferId_);
         populateButtons();
 
-
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //TODO : listener du bouton en haut a gauche
 
     }
@@ -101,11 +81,17 @@ public class JobDescriptionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 RestData rest = new RestData();
-                if(rest.sendCV(jobOfferId_)) {
-                    Snackbar.make(saveButton, "CV envoyé!", Snackbar.LENGTH_SHORT).show();
-                }else{
-                    Snackbar.make(saveButton, "Erreur lors de l'envoi du CV!", Snackbar.LENGTH_SHORT).show();
-                }
+                rest.applyToJob(userID_,jobOfferId_, new ApiCallback() {
+                    @Override
+                    public void onSuccess(JSONObject msg) {
+                        Snackbar.make(saveButton, "CV envoyé!", Snackbar.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(String errorMsg) {
+                        Snackbar.make(saveButton, "Erreur lors de l'envoi du CV!", Snackbar.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -123,10 +109,19 @@ public class JobDescriptionActivity extends AppCompatActivity {
             public void onSuccess(JSONObject msg) {
                 try {
                     msg = msg.getJSONObject("content");
-                    getSupportActionBar().setTitle(msg.getString("title"));
-
-                    dateTextView.setText(msg.getString("date"));
-                    descriptionTextView.setText(msg.getString("description"));
+                    final JSONObject finalMsg = msg;
+                    JobDescriptionActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                getSupportActionBar().setTitle(finalMsg.getString("title"));
+                                dateTextView.setText(finalMsg.getString("date"));
+                                descriptionTextView.setText(finalMsg.getString("description"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
 
                     companyId_ = msg.getString("company_id");
                     if(companyId_ != null){
@@ -135,7 +130,17 @@ public class JobDescriptionActivity extends AppCompatActivity {
                             public void onSuccess(JSONObject msg) {
                                 try {
                                     msg = msg.getJSONObject("content");
-                                    organisationNameTextView.setText(msg.getString("name"));
+                                    final JSONObject finalMsg = msg;
+                                    JobDescriptionActivity.this.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                organisationNameTextView.setText(finalMsg.getString("name"));
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    });
                                 } catch (JSONException e) {
                                     Log.e("JobDescriptionLoading", e.getMessage());
                                 }

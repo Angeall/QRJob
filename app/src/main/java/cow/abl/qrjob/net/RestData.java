@@ -32,6 +32,7 @@ public class RestData {
     private static final String postCVUrl = "/cvs/create";
     private static final String postExperienceUrl = "/experiences/create";
     private static final String postFormationUrl = "/formations/create";
+    private static final String postApplicationUrl = "/applications/create";
 
     private String getExperiencesUrl(String cvID){
         return "/cvs/" + cvID + "/experiences";
@@ -223,8 +224,12 @@ public class RestData {
         }).start();
     }
 
-    public boolean sendCV(String jobOfferId_) {
-        //TODO send CV
-        return true;
+    public void applyToJob(final String userId_, final String jobOfferId_, final ApiCallback callback) {
+        Map<String, String> params = new HashMap<>();
+        params.put("offer_id", jobOfferId_);
+        params.put("user_id", userId_);
+        params.put("cover_letter", "Sample Cover Letter to analyse by bluemix apps");
+
+        post(apiUrl + postApplicationUrl, params, callback);
     }
 }
