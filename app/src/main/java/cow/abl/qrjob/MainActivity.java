@@ -117,11 +117,11 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer,
                     new QRScanFragment(), "").commit();
         } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
             Intent myIntent2 = new Intent(this, CVEditActivity.class);
             myIntent2.putExtra("userId", userId_);
             startActivity(myIntent2);
+        } else if (id == R.id.nav_manage) {
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
