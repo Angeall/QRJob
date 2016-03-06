@@ -28,6 +28,8 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
+
 import cow.abl.qrjob.net.ApiCallback;
 import cow.abl.qrjob.net.RestData;
 
@@ -39,16 +41,11 @@ public class JobDescriptionActivity extends AppCompatActivity {
     TextView organisationNameTextView;
     TextView dateTextView;
     TextView descriptionTextView;
-    private ShareActionProvider shareButtonActionProvider;
 
     private String companyId_;
     private String jobOfferId_;
+    TextView typeTextView;
 
-    private Drawable resize(Drawable image) {
-        Bitmap b = ((BitmapDrawable)image).getBitmap();
-        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, 50, 50, false);
-        return new BitmapDrawable(getResources(), bitmapResized);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +58,7 @@ public class JobDescriptionActivity extends AppCompatActivity {
         cvButton = (FloatingActionButton) actionMenu.findViewById(R.id.job_cv_button);
         saveButton = (FloatingActionButton) actionMenu.findViewById(R.id.job_save_button);
         organisationNameTextView = (TextView) findViewById(R.id.job_organisation_name);
+        typeTextView = (TextView) findViewById(R.id.job_type);
         dateTextView = (TextView) findViewById(R.id.job_date);
         descriptionTextView = (TextView) findViewById(R.id.job_description);
 
@@ -102,7 +100,12 @@ public class JobDescriptionActivity extends AppCompatActivity {
         cvButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(saveButton, "CV envoyé!", Snackbar.LENGTH_SHORT).show();
+                RestData rest = new RestData();
+                if(rest.sendCV(jobOfferId_)) {
+                    Snackbar.make(saveButton, "CV envoyé!", Snackbar.LENGTH_SHORT).show();
+                }else{
+                    Snackbar.make(saveButton, "Erreur lors de l'envoi du CV!", Snackbar.LENGTH_SHORT).show();
+                }
             }
         });
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +124,7 @@ public class JobDescriptionActivity extends AppCompatActivity {
                 try {
                     msg = msg.getJSONObject("content");
                     getSupportActionBar().setTitle(msg.getString("title"));
+
                     dateTextView.setText(msg.getString("date"));
                     descriptionTextView.setText(msg.getString("description"));
 

@@ -152,4 +152,9 @@ public class RestData {
             }
         }).start();
     }
+
+    public boolean sendCV(String jobOfferId_) {
+        //TODO send CV
+        return true;
+    }
 }
