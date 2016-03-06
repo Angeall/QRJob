@@ -13,11 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import cow.abl.qrjob.JobOffer;
 import cow.abl.qrjob.JobOffersAdapter;
 import cow.abl.qrjob.R;
+import cow.abl.qrjob.net.ApiCallback;
+import cow.abl.qrjob.net.RestData;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +41,7 @@ public class OrganisationFragment extends Fragment {
     private static final String ARG_PARAM2 = "companyName";
     private static final String ARG_PARAM3 = "companyDescription";
 
+    private String userId_;
     private String companyId_;
     private String companyName_;
     private String companyDescription_;
@@ -74,15 +81,38 @@ public class OrganisationFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
+            userId_ = getArguments().getString(ARG_PARAM0);
             companyId_ = getArguments().getString(ARG_PARAM1);
             companyName_ = getArguments().getString(ARG_PARAM2);
             companyDescription_ = getArguments().getString(ARG_PARAM3);
         }
 
-        JobOffer jobOffer = new JobOffer("321", "CDI", "Accountant");
-        jobOffersData_.add(jobOffer);
-        jobOffer = new JobOffer("322", "CDD", "Developer");
-        jobOffersData_.add(jobOffer);
+        new RestData().getCompanyOffers(companyId_, new ApiCallback() {
+            @Override
+            public void onSuccess(JSONObject msg) {
+                try {
+                    if (msg.getString("status").equals("successful")) {
+                        Log.d("DEBUG", "### " + msg);
+                        JSONArray offers = msg.getJSONArray("content");
+
+                        int length = offers.length();
+                        for (int i=0 ; i<length ; i++) {
+                            JSONObject jsonOffer = (JSONObject)offers.get(i);
+                            JobOffer jobOffer = new JobOffer(jsonOffer.getString("id"), jsonOffer.getString("type"), jsonOffer.getString("description"));
+                            jobOffersData_.add(jobOffer);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String errorMsg) {
+
+            }
+        });
+
     }
 
     @Override

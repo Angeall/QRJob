@@ -96,21 +96,25 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
 
-                showProgress(true);
+//                showProgress(true);
+
+                String email = mEmailView.getText().toString();
+                String password = mPasswordView.getText().toString();
 
                 // Login attempt
-                new RestData().login("test@test.com", "password", new ApiCallback() {
+                new RestData().login(email, password, new ApiCallback() {
                     @Override
                     public void onSuccess(JSONObject msg) {
                         try {
                             if (msg == null) {
-                                Snackbar.make(mEmailView, "Le login a échoué.", Snackbar.LENGTH_INDEFINITE);
+                                Snackbar.make(mEmailView, "Le login a échoué.", Snackbar.LENGTH_INDEFINITE).show();
                             }
 
+                            Log.d("DEBUG", "### " + msg.toString());
                             String status = msg.getString("status");
 
-                            if (true) {
-//                            if (status!=null && (status.equals("success") || status.equals("successful"))) {
+//                            if (true) {
+                            if (status != null && (status.equals("success") || status.equals("successful"))) {
                                 // Store user ID
                                 String userId = msg.getString("id");
 
@@ -120,33 +124,46 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 myIntent.putExtra("userId", userId);
                                 startActivity(myIntent);
                             } else {
-                                Snackbar.make(mEmailView, "Le login a échoué.", Snackbar.LENGTH_INDEFINITE);
+                                Snackbar.make(mEmailView, "Le login a échoué.", Snackbar.LENGTH_INDEFINITE).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Snackbar.make(mEmailView, "Le login a échoué.", Snackbar.LENGTH_INDEFINITE);
+                            Snackbar.make(mEmailView, "Le login a échoué.", Snackbar.LENGTH_INDEFINITE).show();
                         }
                     }
 
                     @Override
                     public void onFailure(String errorMsg) {
-                        Snackbar.make(mEmailView, errorMsg, Snackbar.LENGTH_INDEFINITE);
+                        Snackbar.make(mEmailView, errorMsg, Snackbar.LENGTH_INDEFINITE).show();
                     }
                 });
 
-                new RestData().getCV("1", new ApiCallback() {
+                // Register
+                Log.d("DEBUG", "### " + email + password);
+                new RestData().createUser(email, password, "Jean Dupond", new ApiCallback() {
                     @Override
                     public void onSuccess(JSONObject msg) {
-                        Log.d("DEBUG", "### " + msg.toString());
                     }
 
                     @Override
                     public void onFailure(String errorMsg) {
-                        Log.d("DEBUG", "### " + errorMsg);
+
                     }
                 });
 
-                showProgress(false);
+//                new RestData().getCV("1", new ApiCallback() {
+//                    @Override
+//                    public void onSuccess(JSONObject msg) {
+//                        Log.d("DEBUG", "### " + msg.toString());
+//                    }
+//
+//                    @Override
+//                    public void onFailure(String errorMsg) {
+//                        Log.d("DEBUG", "### " + errorMsg);
+//                    }
+//                });
+
+//                showProgress(false);
             }
         });
 
