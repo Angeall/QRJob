@@ -1,6 +1,7 @@
 package cow.abl.qrjob;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,12 @@ public class JobOffersAdapter extends RecyclerView.Adapter<JobOffersAdapter.MyVi
             super(itemView);
             this.tvJobName = (TextView) itemView.findViewById(R.id.job_name);
             this.tvJobDescription = (TextView) itemView.findViewById(R.id.job_description);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("PROUT", "clicked");
+                }
+            });
         }
     }
 
@@ -40,9 +47,8 @@ public class JobOffersAdapter extends RecyclerView.Adapter<JobOffersAdapter.MyVi
                 .inflate(R.layout.job_card, parent, false);
 
         view.setOnClickListener(OrganisationFragment.cardOnClickListener);
-
-        MyViewHolder myViewHolder = new MyViewHolder(view);
-        return myViewHolder;
+        Log.d("QRJob", "item created");
+        return new MyViewHolder(view);
     }
 
     @Override
