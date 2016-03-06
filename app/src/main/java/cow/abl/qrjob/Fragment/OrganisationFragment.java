@@ -30,6 +30,7 @@ import cow.abl.qrjob.R;
 public class OrganisationFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM0 = "userId";
     private static final String ARG_PARAM1 = "companyId";
     private static final String ARG_PARAM2 = "companyName";
     private static final String ARG_PARAM3 = "companyDescription";
@@ -57,9 +58,10 @@ public class OrganisationFragment extends Fragment {
      * @return A new instance of fragment OrganisationFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static OrganisationFragment newInstance(String companyId, String companyName, String companyDescription) {
+    public static OrganisationFragment newInstance(String userId, String companyId, String companyName, String companyDescription) {
         OrganisationFragment fragment = new OrganisationFragment();
         Bundle args = new Bundle();
+        args.putString(ARG_PARAM0, userId);
         args.putString(ARG_PARAM1, companyId);
         args.putString(ARG_PARAM2, companyName);
         args.putString(ARG_PARAM3, companyDescription);
