@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity
         OrganisationFragment.OnFragmentInteractionListener {
 
     private String lastQrCodeRead_ = null;
+    private String userId_ = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,9 @@ public class MainActivity extends AppCompatActivity
         // Default fragment : QR Scanner
         getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer,
                 new QRScanFragment(), "").commit();
+
+        Intent myIntent = getIntent();
+        userId_ = myIntent.getStringExtra("userId");
     }
 
     @Override
@@ -150,7 +154,7 @@ public class MainActivity extends AppCompatActivity
 //            myIntent.putExtra("companyDescription", companyDescription);
 //            startActivity(myIntent);
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, OrganisationFragment.newInstance(companyId, companyName, companyDescription)).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, OrganisationFragment.newInstance(userId_, companyId, companyName, companyDescription)).commit();
 
         } catch (JSONException e) {
             e.printStackTrace();

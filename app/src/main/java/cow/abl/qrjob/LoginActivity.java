@@ -111,9 +111,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             if (true) {
 //                            if (status!=null && (status.equals("success") || status.equals("successful"))) {
+                                // Store user ID
+                                String userId = msg.getString("id");
+
                                 // Go to QR capture activity
                                 Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
                                 myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                myIntent.putExtra("userId", userId);
                                 startActivity(myIntent);
                             } else {
                                 Snackbar.make(mEmailView, "Le login a échoué.", Snackbar.LENGTH_INDEFINITE);
@@ -127,6 +131,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     @Override
                     public void onFailure(String errorMsg) {
                         Snackbar.make(mEmailView, errorMsg, Snackbar.LENGTH_INDEFINITE);
+                    }
+                });
+
+                new RestData().getCV("1", new ApiCallback() {
+                    @Override
+                    public void onSuccess(JSONObject msg) {
+                        Log.d("DEBUG", "### " + msg.toString());
+                    }
+
+                    @Override
+                    public void onFailure(String errorMsg) {
+                        Log.d("DEBUG", "### " + errorMsg);
                     }
                 });
 

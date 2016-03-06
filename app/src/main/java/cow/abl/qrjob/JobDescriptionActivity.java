@@ -33,7 +33,7 @@ public class JobDescriptionActivity extends AppCompatActivity {
         cvButton = (FloatingActionButton) actionMenu.findViewById(R.id.job_cv_button);
         shareButton = (FloatingActionButton) actionMenu.findViewById(R.id.job_share_button);
         saveButton = (FloatingActionButton) actionMenu.findViewById(R.id.job_save_button);
-        listView = (ListViewCompat) findViewById(R.id.job_description_list_view);
+//        listView = (ListViewCompat) findViewById(R.id.job_description_list_view);
         getSupportActionBar().setTitle("##JOB_TITLE");
 
 

@@ -28,6 +28,7 @@ public class RestData {
     private static final String getCompanyUrl = "/companies/";
     private static final String getCompanyOffersUrl = "/companies/%s/offers";
     private static final String getApplicationUrl = "/applications/";
+    private static final String getCVUrl = "/cvs/";
 
     /*
     POST QRjob requests.
@@ -72,6 +73,10 @@ public class RestData {
 
     public void getApplication(final String id, final ApiCallback callback) {
         get(apiUrl + getApplicationUrl + id, callback);
+    }
+
+    public void getCV(final String id, final ApiCallback callback) {
+        get(apiUrl + getCVUrl + id, callback);
     }
 
     /*
