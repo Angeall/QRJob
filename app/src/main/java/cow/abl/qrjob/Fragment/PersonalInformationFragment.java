@@ -5,13 +5,20 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cow.abl.qrjob.CVEditActivity;
 import cow.abl.qrjob.R;
+import cow.abl.qrjob.net.ApiCallback;
+import cow.abl.qrjob.net.RestData;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -116,10 +123,9 @@ public class PersonalInformationFragment extends Fragment {
         countriesTextView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
+                if (hasFocus) {
                     ((AppCompatAutoCompleteTextView) v).showDropDown();
-                }
-                else ((AppCompatAutoCompleteTextView) v).dismissDropDown();
+                } else ((AppCompatAutoCompleteTextView) v).dismissDropDown();
             }
         });
         maritalStatusesTextView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -131,6 +137,18 @@ public class PersonalInformationFragment extends Fragment {
                 else ((AppCompatAutoCompleteTextView) v).dismissDropDown();
             }
         });
+        JSONObject cv = ((CVEditActivity) getActivity()).getCVJSON();
+        if(cv != null){
+            try {
+                nameTextView.setText(cv.getString("lastname"));
+                surnameTextView.setText(cv.getString("firstname"));
+                ageTextView.setText(cv.getString("age"));
+                countriesTextView.setText(cv.getString("nationality"));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -148,6 +166,32 @@ public class PersonalInformationFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public void pushCV() {
+        final String[] res = new String[1];
+            new RestData().postCV(nameTextView.getText(), surnameTextView.getText(),
+                    ((CVEditActivity) getActivity()).getUserID(), ageTextView.getText(),
+                    countriesTextView.getText(), new ApiCallback() {
+                        @Override
+                        public void onSuccess(JSONObject msg) {
+                            try {
+                                Log.d("QRJob", "JSON : " + msg);
+                                res[0] = msg.getString("id");
+                                ((CVEditActivity) PersonalInformationFragment.this.getActivity()).notifyCVPushed(res[0]);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                onFailure("JSONException");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(String errorMsg) {
+                            res[0] = "-1";
+                            Log.d("QRJob", "FAILLLLLEEEEDDDD : " + errorMsg);
+                            ((CVEditActivity) PersonalInformationFragment.this.getActivity()).notifyCVPushed(res[0]);
+                        }
+                    });
     }
 
     /**

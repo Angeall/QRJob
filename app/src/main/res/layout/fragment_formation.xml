@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cow.abl.qrjob.Fragment.ExperiencesFragment">
+    tools:context="cow.abl.qrjob.Fragment.FormationFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -12,14 +12,14 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/experience1title"
+                android:id="@+id/formation1title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:hint="@string/experience"/>
+                android:hint="@string/formation"/>
             <android.support.v7.widget.AppCompatEditText
                 android:layout_marginLeft="30dp"
-                android:id="@+id/experience1desc"
+                android:id="@+id/formation1desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/description"/>
@@ -29,32 +29,30 @@
                 android:layout_marginLeft="30dp"
                 android:orientation="horizontal">
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/startdate1"
+                    android:id="@+id/f_startdate1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="date"
- 	 	 	 	 	android:editable="false"
                     android:hint="@string/start_date"/>
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/enddate1"
+                    android:id="@+id/f_enddate1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="date"
- 	 	 	 	 	android:editable="false"
                     android:hint="@string/end_date"/>
             </LinearLayout>
             <android.support.v7.widget.AppCompatEditText
                 android:layout_marginTop="30dp"
-                android:id="@+id/experience2title"
+                android:id="@+id/formation2title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:hint="@string/experience"/>
+                android:hint="@string/formation"/>
             <android.support.v7.widget.AppCompatEditText
                 android:layout_marginLeft="30dp"
-                android:id="@+id/experience2desc"
+                android:id="@+id/formation2desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/description"/>
@@ -64,32 +62,30 @@
                 android:layout_marginLeft="30dp"
                 android:orientation="horizontal">
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/startdate2"
+                    android:id="@+id/f_startdate2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="date"
- 	 	 	 	 	android:editable="false"
                     android:hint="@string/start_date"/>
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/enddate2"
+                    android:id="@+id/f_enddate2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="date"
- 	 	 	 	 	android:editable="false"
                     android:hint="@string/end_date"/>
             </LinearLayout>
             <android.support.v7.widget.AppCompatEditText
                 android:layout_marginTop="30dp"
-                android:id="@+id/experience3title"
+                android:id="@+id/formation3title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:hint="@string/experience"/>
+                android:hint="@string/formation"/>
             <android.support.v7.widget.AppCompatEditText
                 android:layout_marginLeft="30dp"
-                android:id="@+id/experience3desc"
+                android:id="@+id/formation3desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/description"/>
@@ -99,32 +95,30 @@
                 android:layout_marginLeft="30dp"
                 android:orientation="horizontal">
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/startdate3"
+                    android:id="@+id/f_startdate3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="date"
- 	 	 	 	 	android:editable="false"
                     android:hint="@string/start_date"/>
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/enddate3"
+                    android:id="@+id/f_enddate3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="date"
- 	 	 	 	 	android:editable="false"
                     android:hint="@string/end_date"/>
             </LinearLayout>
             <android.support.v7.widget.AppCompatEditText
                 android:layout_marginTop="30dp"
-                android:id="@+id/experience4title"
+                android:id="@+id/formation4title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:hint="@string/experience"/>
+                android:hint="@string/formation"/>
             <android.support.v7.widget.AppCompatEditText
                 android:layout_marginLeft="30dp"
-                android:id="@+id/experience4desc"
+                android:id="@+id/formation4desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/description"/>
@@ -134,32 +128,30 @@
                 android:layout_marginLeft="30dp"
                 android:orientation="horizontal">
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/startdate4"
+                    android:id="@+id/f_startdate4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="date"
- 	 	 	 	 	android:editable="false"
                     android:hint="@string/start_date"/>
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/enddate4"
+                    android:id="@+id/f_enddate4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="date"
- 	 	 	 	 	android:editable="false"
                     android:hint="@string/end_date"/>
             </LinearLayout>
             <android.support.v7.widget.AppCompatEditText
                 android:layout_marginTop="30dp"
-                android:id="@+id/experience5title"
+                android:id="@+id/formation5title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:hint="@string/experience"/>
+                android:hint="@string/formation"/>
             <android.support.v7.widget.AppCompatEditText
                 android:layout_marginLeft="30dp"
-                android:id="@+id/experience5desc"
+                android:id="@+id/formation5desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/description"/>
@@ -169,33 +161,31 @@
                 android:layout_marginLeft="30dp"
                 android:orientation="horizontal">
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/startdate5"
+                    android:id="@+id/f_startdate5"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="date"
- 	 	 	 	 	android:editable="false"
                     android:hint="@string/start_date"/>
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/enddate5"
+                    android:id="@+id/f_enddate5"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="date"
- 	 	 	 	 	android:editable="false"
                     android:hint="@string/end_date"/>
             </LinearLayout>
             <android.support.v7.widget.AppCompatEditText
                 android:layout_marginTop="30dp"
-                android:id="@+id/experience6title"
+                android:id="@+id/formation6title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:hint="@string/experience"/>
+                android:hint="@string/formation"/>
 
             <android.support.v7.widget.AppCompatEditText
                 android:layout_marginLeft="30dp"
-                android:id="@+id/experience6desc"
+                android:id="@+id/formation6desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/description"/>
@@ -205,32 +195,30 @@
                 android:layout_marginLeft="30dp"
                 android:orientation="horizontal">
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/startdate6"
+                    android:id="@+id/f_startdate6"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="date"
- 	 	 	 	 	android:editable="false"
                     android:hint="@string/start_date"/>
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/enddate6"
+                    android:id="@+id/f_enddate6"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="date"
- 	 	 	 	 	android:editable="false"
                     android:hint="@string/end_date"/>
             </LinearLayout>
             <android.support.v7.widget.AppCompatEditText
                 android:layout_marginTop="30dp"
-                android:id="@+id/experience7title"
+                android:id="@+id/formation7title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:hint="@string/experience"/>
+                android:hint="@string/formation"/>
             <android.support.v7.widget.AppCompatEditText
                 android:layout_marginLeft="30dp"
-                android:id="@+id/experience7desc"
+                android:id="@+id/formation7desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/description"/>
@@ -240,32 +228,30 @@
                 android:layout_marginLeft="30dp"
                 android:orientation="horizontal">
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/startdate7"
+                    android:id="@+id/f_startdate7"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="date"
- 	 	 	 	 	android:editable="false"
                     android:hint="@string/start_date"/>
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/enddate7"
+                    android:id="@+id/f_enddate7"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="date"
- 	 	 	 	 	android:editable="false"
                     android:hint="@string/end_date"/>
             </LinearLayout>
             <android.support.v7.widget.AppCompatEditText
                 android:layout_marginTop="30dp"
-                android:id="@+id/experience8title"
+                android:id="@+id/formation8title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:hint="@string/experience"/>
+                android:hint="@string/formation"/>
             <android.support.v7.widget.AppCompatEditText
                 android:layout_marginLeft="30dp"
-                android:id="@+id/experience8desc"
+                android:id="@+id/formation8desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/description"/>
@@ -275,32 +261,30 @@
                 android:layout_marginLeft="30dp"
                 android:orientation="horizontal">
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/startdate8"
+                    android:id="@+id/f_startdate8"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="date"
- 	 	 	 	 	android:editable="false"
                     android:hint="@string/start_date"/>
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/enddate8"
+                    android:id="@+id/f_enddate8"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="date"
- 	 	 	 	 	android:editable="false"
                     android:hint="@string/end_date"/>
             </LinearLayout>
             <android.support.v7.widget.AppCompatEditText
                 android:layout_marginTop="30dp"
-                android:id="@+id/experience9title"
+                android:id="@+id/formation9title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:hint="@string/experience"/>
+                android:hint="@string/formation"/>
             <android.support.v7.widget.AppCompatEditText
                 android:layout_marginLeft="30dp"
-                android:id="@+id/experience9desc"
+                android:id="@+id/formation9desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/description"/>
@@ -310,32 +294,30 @@
                 android:layout_marginLeft="30dp"
                 android:orientation="horizontal">
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/startdate9"
+                    android:id="@+id/f_startdate9"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="date"
- 	 	 	 	 	android:editable="false"
                     android:hint="@string/start_date"/>
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/enddate9"
+                    android:id="@+id/f_enddate9"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="date"
- 	 	 	 	 	android:editable="false"
                     android:hint="@string/end_date"/>
             </LinearLayout>
             <android.support.v7.widget.AppCompatEditText
                 android:layout_marginTop="30dp"
-                android:id="@+id/experience10title"
+                android:id="@+id/formation10title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:hint="@string/experience"/>
+                android:hint="@string/formation"/>
             <android.support.v7.widget.AppCompatEditText
                 android:layout_marginLeft="30dp"
-                android:id="@+id/experience10desc"
+                android:id="@+id/formation10desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/description"/>
@@ -346,19 +328,18 @@
                 android:layout_marginBottom="100dp"
                 android:orientation="horizontal">
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/startdate10"
+                    android:id="@+id/f_startdate10"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="date"
- 	 	 	 	 	android:editable="false"
                     android:hint="@string/start_date"/>
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/enddate10"
+                    android:id="@+id/f_enddate10"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:inputType="date"
+                    android:inputType="date|none"
                     android:hint="@string/end_date"/>
             </LinearLayout>
         </LinearLayout>
