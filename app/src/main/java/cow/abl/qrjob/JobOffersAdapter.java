@@ -1,5 +1,6 @@
 package cow.abl.qrjob;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ public class JobOffersAdapter extends RecyclerView.Adapter<JobOffersAdapter.MyVi
 
         TextView tvJobName;
         TextView tvJobDescription;
+        private JobOffer data;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -30,9 +32,18 @@ public class JobOffersAdapter extends RecyclerView.Adapter<JobOffersAdapter.MyVi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Intent i = new Intent(v.getContext(), JobDescriptionActivity.class);
+                    i.putExtra("user_id", "1");
+                    i.putExtra("jobOfferId", data.getId().toString());
+
+                    v.getContext().startActivity(i);
                     Log.d("PROUT", "clicked");
                 }
             });
+        }
+
+        public void setData(JobOffer data) {
+            this.data = data;
         }
     }
 
@@ -56,6 +67,8 @@ public class JobOffersAdapter extends RecyclerView.Adapter<JobOffersAdapter.MyVi
 
         TextView tvJobName = holder.tvJobName;
         TextView tvJobDescription = holder.tvJobDescription;
+
+        holder.setData(dataSet.get(listPosition));
 
         tvJobName.setText(dataSet.get(listPosition).getType());
         tvJobDescription.setText(dataSet.get(listPosition).getDescription());
