@@ -113,17 +113,15 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-
-        } else if (id == R.id.nav_gallery) {
-
+            // Default fragment : QR Scanner
+            getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer,
+                    new QRScanFragment(), "").commit();
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+            Intent myIntent2 = new Intent(this, CVEditActivity.class);
+            myIntent2.putExtra("userId", userId_);
+            startActivity(myIntent2);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -62,7 +62,7 @@ public class CVEditActivity extends AppCompatActivity implements
         userID = getIntent().getStringExtra("userId");
 
         //  DEFAULT
-        userID = "18";
+        userID = "1";
         //  /DEFAULT
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
