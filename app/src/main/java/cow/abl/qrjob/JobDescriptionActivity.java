@@ -3,7 +3,9 @@ package cow.abl.qrjob;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -33,14 +35,18 @@ public class JobDescriptionActivity extends AppCompatActivity {
     private String jobOfferId_;
     TextView typeTextView;
     private String userID_;
+    ActionBar supportActionBar;
+    Toolbar bar;
+    CollapsingToolbarLayout lay;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_description);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.job_description_toolbar);
-        setSupportActionBar(toolbar);
+        bar = (Toolbar) findViewById(R.id.job_description_toolbar);
+        setSupportActionBar(bar);
         actionMenu = (FloatingActionMenu) findViewById(R.id.job_description_floating_menu);
         shareButton = (FloatingActionButton) actionMenu.findViewById(R.id.job_share_button);
         cvButton = (FloatingActionButton) actionMenu.findViewById(R.id.job_cv_button);
@@ -49,6 +55,9 @@ public class JobDescriptionActivity extends AppCompatActivity {
         typeTextView = (TextView) findViewById(R.id.job_type);
         dateTextView = (TextView) findViewById(R.id.job_date);
         descriptionTextView = (TextView) findViewById(R.id.job_description);
+        supportActionBar = getSupportActionBar();
+        lay = (CollapsingToolbarLayout) findViewById(R.id.job_description_toolbar_layout);
+        supportActionBar.setDisplayHomeAsUpEnabled(true); //TODO : listener du bouton en haut a gauche
 
         jobOfferId_ = getIntent().getStringExtra("jobOfferId");
         userID_     = getIntent().getStringExtra("user_id");
@@ -56,11 +65,9 @@ public class JobDescriptionActivity extends AppCompatActivity {
 
         jobOfferId_ = "6";
 
-        populateViews(jobOfferId_);
+        Log.i("after", String.valueOf(supportActionBar.getTitle()));
         populateButtons();
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //TODO : listener du bouton en haut a gauche
-
+        populateViews(jobOfferId_);
     }
 
     private void populateButtons() {
@@ -68,7 +75,7 @@ public class JobDescriptionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String shareBody = organisationNameTextView.getText()+" propose un emploi de "+
-                        getSupportActionBar().getTitle()+" à partir du "+dateTextView.getText()+
+                        supportActionBar.getTitle()+" à partir du "+dateTextView.getText()+
                         "\nDescription : "+descriptionTextView.getText();
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
@@ -97,9 +104,17 @@ public class JobDescriptionActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(saveButton, "Offre d'emploi sauvegardée pour plus tard...", Snackbar.LENGTH_SHORT).show();
+                //Snackbar.make(saveButton, "Offre d'emploi sauvegardée pour plus tard...", Snackbar.LENGTH_SHORT).show();
+
+                Snackbar.make(saveButton, supportActionBar.getTitle(), Snackbar.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void setToolbarTitle(String title){
+        supportActionBar.setTitle(title);
+        bar.setTitle(title);
+        lay.setTitle(title);
     }
 
     private void populateViews(String jobOfferId) {
@@ -114,11 +129,12 @@ public class JobDescriptionActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             try {
-                                getSupportActionBar().setTitle(finalMsg.getString("title"));
+                                JobDescriptionActivity.this.setToolbarTitle(finalMsg.getString("title"));
+                                Log.i("getTitle", String.valueOf(supportActionBar.getTitle()));
                                 dateTextView.setText(finalMsg.getString("date"));
                                 descriptionTextView.setText(finalMsg.getString("description"));
                             } catch (JSONException e) {
-                                e.printStackTrace();
+                                Log.e("JobDescriptionActivity", e.getMessage());
                             }
                         }
                     });

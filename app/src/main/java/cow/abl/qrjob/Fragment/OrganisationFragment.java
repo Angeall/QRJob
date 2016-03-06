@@ -79,6 +79,7 @@ public class OrganisationFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //cardOnClickListener = new CardOnClickListener(getContext());
 
         if (getArguments() != null) {
             userId_ = getArguments().getString(ARG_PARAM0);
@@ -98,9 +99,10 @@ public class OrganisationFragment extends Fragment {
                         int length = offers.length();
                         for (int i=0 ; i<length ; i++) {
                             JSONObject jsonOffer = (JSONObject)offers.get(i);
-                            JobOffer jobOffer = new JobOffer(jsonOffer.getString("id"), jsonOffer.getString("type"), jsonOffer.getString("description"));
+                            JobOffer jobOffer = new JobOffer(jsonOffer.getString("id"), /*jsonOffer.getString("type") todo fetch type*/"CDD", jsonOffer.getString("description"));
                             jobOffersData_.add(jobOffer);
                         }
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
