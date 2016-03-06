@@ -12,20 +12,30 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import cow.abl.qrjob.Fragment.ExperiencesFragment;
+import cow.abl.qrjob.Fragment.FormationFragment;
 import cow.abl.qrjob.Fragment.PersonalInformationFragment;
+import cow.abl.qrjob.net.ApiCallback;
+import cow.abl.qrjob.net.RestData;
 
 public class CVEditActivity extends AppCompatActivity implements
         PersonalInformationFragment.OnFragmentInteractionListener,
-        ExperiencesFragment.OnFragmentInteractionListener{
+        ExperiencesFragment.OnFragmentInteractionListener,
+        FormationFragment.OnFragmentInteractionListener{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -36,19 +46,36 @@ public class CVEditActivity extends AppCompatActivity implements
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private String userID;
+    private JSONObject cVJSON;
 
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private PersonalInformationFragment personalInformationFragment = new PersonalInformationFragment();
+    private FormationFragment formationFragment = new FormationFragment();
+    private ExperiencesFragment experiencesFragment = new ExperiencesFragment();
+    private JSONArray experiencesJSON;
+    private JSONArray formationJSON;
+    private String CVID;
+    private boolean experiencesPushed = false;
+    private boolean formationsPushed = false;
+    private boolean broken = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cvedit);
+        userID = getIntent().getStringExtra("userId");
+
+        //  DEFAULT
+        userID = "18";
+        //  /DEFAULT
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -58,6 +85,56 @@ public class CVEditActivity extends AppCompatActivity implements
         mViewPager.setAdapter(mSectionsPagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.cv_edit_tabs);
         tabLayout.setupWithViewPager(mViewPager);
+        final RestData restData = new RestData();
+        restData.getCV(userID, new ApiCallback() {
+            @Override
+            public void onSuccess(JSONObject msg) {
+                try {
+                    cVJSON = msg.getJSONObject("content");
+                    CVID = cVJSON.getString("id");
+                    restData.getExperiences(CVID, new ApiCallback() {
+                        @Override
+                        public void onSuccess(JSONObject msg) {
+                            try {
+                                experiencesJSON = msg.getJSONArray("content");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d("QRJob", "GET : " + msg.toString());
+                        }
+
+                        @Override
+                        public void onFailure(String errorMsg) {
+                            Log.d("QRJob", "FAILED" + errorMsg);
+                        }
+                    });
+                    restData.getFormations(CVID, new ApiCallback() {
+                        @Override
+                        public void onSuccess(JSONObject msg) {
+                            try {
+                                formationJSON = msg.getJSONArray("content");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d("QRJob", "GET : " + msg.toString());
+                        }
+
+                        @Override
+                        public void onFailure(String errorMsg) {
+
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Log.d("QRJob", "GET : " + cVJSON);
+            }
+
+            @Override
+            public void onFailure(String errorMsg) {
+                cVJSON = null;
+            }
+        });
     }
 
 
@@ -76,8 +153,13 @@ public class CVEditActivity extends AppCompatActivity implements
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.cv_edit_ok_button) {
+            Log.d("QRJob", "To send");
+            personalInformationFragment.pushCV();
+        }
+        else if(id == android.R.id.home) {
+            Log.d("QRJob", "Back Pressed");
+            onBackPressed();
         }
 
         return super.onOptionsItemSelected(item);
@@ -87,6 +169,61 @@ public class CVEditActivity extends AppCompatActivity implements
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+    public JSONObject getCVJSON(){
+        return cVJSON;
+    }
+
+    public JSONArray getExperiencesJSON() {
+        return experiencesJSON;
+    }
+
+    public JSONArray getFormationJSON() {
+        return formationJSON;
+    }
+
+    public String getUserID(){
+        return userID;
+    }
+
+    public void notifyCVPushed(String res) {
+        CVID = res;
+        Log.d("QRJob", "Result CVs : " + res);
+        experiencesFragment.pushExperiences();
+    }
+
+    public void notifyExperiencesPushed(String res) {
+        Log.d("QRJob", "Result Experiences : " + res);
+        if(!(res == null) && res.equals("-1")) broken = true;
+        if (!experiencesPushed){
+            experiencesPushed = true;
+            formationFragment.pushFormations();
+        }
+    }
+
+    public void notifyFormationsPushed(String res) {
+        Log.d("QRJob", "Result Formations : " + res);
+        if(!(res == null) && res.equals("-1")) {
+            broken = true;
+            Snackbar.make(mViewPager, "Problème de connexion internet", Snackbar.LENGTH_SHORT);
+        }
+        else if (!formationsPushed){
+            formationsPushed = true;
+            if(!broken) runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d("QRJob", "onBackPressed called");
+                    CVEditActivity.this.onBackPressed();
+                }
+            });
+            else Snackbar.make(mViewPager, "Problème de connexion internet", Snackbar.LENGTH_SHORT);
+        }
+    }
+
+    public String getCVID() {
+        return CVID;
+    }
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -104,9 +241,11 @@ public class CVEditActivity extends AppCompatActivity implements
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch(position){
                 case 0:
-                    return new PersonalInformationFragment();
-//                case 1:
-//                    return new ExperiencesFragment();
+                    return personalInformationFragment;
+                case 1:
+                    return experiencesFragment;
+                case 2:
+                    return formationFragment;
             }
             return new PersonalInformationFragment();
         }
@@ -125,7 +264,7 @@ public class CVEditActivity extends AppCompatActivity implements
                 case 1:
                     return getString(R.string.experiences);
                 case 2:
-                    return "SECTION 3";
+                    return getString(R.string.formations);
             }
             return null;
         }

@@ -1,5 +1,6 @@
 package cow.abl.qrjob.net;
 
+import android.text.Editable;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -29,6 +30,17 @@ public class RestData {
     private static final String getCompanyOffersUrl = "/companies/%s/offers";
     private static final String getApplicationUrl = "/applications/";
     private static final String getCVUrl = "/cvs/";
+    private static final String postCVUrl = "/cvs/create";
+    private static final String postExperienceUrl = "/experiences/create";
+    private static final String postFormationUrl = "/formations/create";
+
+    private String getExperiencesUrl(String cvID){
+        return "/cvs/" + cvID + "/experiences";
+    }
+
+    private String getFormationsUrl(String cvID){
+        return "/cvs/" + cvID + "/formations";
+    }
 
     /*
     POST QRjob requests.
@@ -49,6 +61,42 @@ public class RestData {
         params.put("name", name);
 
         post(apiUrl + createUserUrl, params, callback);
+    }
+
+    public void postCV(final CharSequence nom, final CharSequence prenom, final String user_id,
+                       final CharSequence age, final Editable natio, ApiCallback callback){
+        Map<String, String> params = new HashMap<>();
+        params.put("lastname", nom.toString());
+        params.put("firstname", prenom.toString());
+        params.put("age", age.toString());
+        params.put("nationality", natio.toString());
+        params.put("user_id", user_id);
+
+        post(apiUrl + postCVUrl, params, callback);
+    }
+
+    public void postExperience(final String cvID, final CharSequence title, final CharSequence description,
+                       final CharSequence startDate, final CharSequence endDate, ApiCallback callback){
+        Map<String, String> params = new HashMap<>();
+        params.put("cv_id", cvID);
+        params.put("title", title.toString());
+        params.put("description", description.toString());
+        params.put("begin", startDate.toString());
+        params.put("end", endDate.toString());
+
+        post(apiUrl + postExperienceUrl, params, callback);
+    }
+
+    public void postFormation(final String cvID, final CharSequence title, final CharSequence description,
+                               final CharSequence startDate, final CharSequence endDate, ApiCallback callback){
+        Map<String, String> params = new HashMap<>();
+        params.put("cv_id", cvID);
+        params.put("title", title.toString());
+        params.put("description", description.toString());
+        params.put("begin", startDate.toString());
+        params.put("end", endDate.toString());
+
+        post(apiUrl + postFormationUrl, params, callback);
     }
 
     /*
@@ -77,6 +125,14 @@ public class RestData {
 
     public void getCV(final String id, final ApiCallback callback) {
         get(apiUrl + getCVUrl + id, callback);
+    }
+
+    public void getExperiences(final String cvID, final ApiCallback callback){
+        get(apiUrl + getExperiencesUrl(cvID), callback);
+    }
+
+    public void getFormations(final String cvID, final ApiCallback callback){
+        get(apiUrl + getFormationsUrl(cvID), callback);
     }
 
     /*
