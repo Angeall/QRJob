@@ -10,7 +10,7 @@
     android:orientation="vertical"
     tools:context="cow.abl.qrjob.JobDescriptionActivity"
     tools:showIn="@layout/activity_job_description">
-    <android.support.v7.widget.AppCompatTextView
+    <TextView
         android:id="@+id/job_organisation_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/job_type"

@@ -18,6 +18,10 @@
         <activity android:name=".LoginActivity"
             android:allowEmbedded="@style/AppTheme.NoActionBar">
 
+        <activity
+            android:name=".JobDescriptionActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,18 +38,19 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity
-            android:name=".JobDescriptionActivity"
-            android:label="@string/title_activity_job_description"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="cow.abl.qrjob.MainActivity" />
-        </activity>
         <!--<activity-->
-            <!--android:name=".CVEditActivity"-->
-            <!--android:label="@string/title_activity_cvedit"-->
-            <!--android:theme="@style/AppTheme.NoActionBar"></activity>-->
+            <!--android:name=".JobDescriptionActivity"-->
+            <!--android:label="@string/title_activity_job_description"-->
+            <!--android:theme="@style/AppTheme.NoActionBar">-->
+            <!--<meta-data-->
+                <!--android:name="android.support.PARENT_ACTIVITY"-->
+                <!--android:value="cow.abl.qrjob.MainActivity" />-->
+        <!--</activity>-->
+        <activity
+            android:name=".CVEditActivity"
+            android:label="@string/title_activity_cvedit"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
