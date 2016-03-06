@@ -27,9 +27,9 @@
                 android:id="@+id/job_description_header"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/ic_menu_slideshow"
+                android:background="@drawable/ic_briefcase"
                 android:fitsSystemWindows="true"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 app:layout_collapseMode="parallax" />
 
             <android.support.v7.widget.Toolbar
@@ -107,7 +107,7 @@
             android:id="@+id/job_save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/save_icon"
+            android:src="@drawable/ic_save"
             fab:fab_size="mini"/>
 
 

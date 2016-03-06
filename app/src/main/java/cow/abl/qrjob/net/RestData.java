@@ -1,7 +1,6 @@
 package cow.abl.qrjob.net;
 
 import android.text.Editable;
-import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
